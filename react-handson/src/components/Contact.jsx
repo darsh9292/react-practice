@@ -1,15 +1,29 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
+import UserContext from '../context/UserContext'
 
 const Contact = () => {
-  return (
-    <div className="relative flex items-top justify-center min-h-[700px] bg-white sm:items-center sm:pt-0">
+
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [number, setNumber] = useState("")
+
+    const { setUser } = useContext(UserContext)
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setUser({name, email, number})
+        alert("Data will be stored in context and showed on Github")
+    }
+
+    return (
+        <div className="relative flex items-top justify-center min-h-[700px] bg-white sm:items-center sm:pt-0">
             <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 <div className="mt-8 overflow-hidden">
                     <div className="grid grid-cols-1 md:grid-cols-2">
                         <div className="p-6 mr-2 bg-gray-100 sm:rounded-lg">
                             <h1 className="text-3xl sm:text-4xl text-gray-800 font-extrabold tracking-tight">
-                                Get in touch: 
+                                Get in touch:
                             </h1>
                             <p className="text-normal text-lg sm:text-xl font-medium text-gray-600 mt-2">
                                 Fill in the form to start a conversation
@@ -95,8 +109,10 @@ const Contact = () => {
                                 </label>
                                 <input
                                     type="name"
+                                    value={name}
                                     name="name"
                                     id="name"
+                                    onChange={(e) => {setName(e.target.value)}}
                                     placeholder="Full Name"
                                     className="w-100 mt-2 py-3 px-3 rounded-lg bg-white border border-gray-400 text-gray-800 font-semibold focus:border-orange-500 focus:outline-none"
                                 />
@@ -110,6 +126,8 @@ const Contact = () => {
                                     type="email"
                                     name="email"
                                     id="email"
+                                    onChange={(e) => {setEmail(e.target.value)}}
+                                    value={email}
                                     placeholder="Email"
                                     className="w-100 mt-2 py-3 px-3 rounded-lg bg-white border border-gray-400 text-gray-800 font-semibold focus:border-orange-500 focus:outline-none"
                                 />
@@ -122,6 +140,8 @@ const Contact = () => {
                                 <input
                                     type="tel"
                                     name="tel"
+                                    onChange={(e) => {setNumber(e.target.value)}}
+                                    value={number}
                                     id="tel"
                                     placeholder="Telephone Number"
                                     className="w-100 mt-2 py-3 px-3 rounded-lg bg-white border border-gray-400 text-gray-800 font-semibold focus:border-orange-500 focus:outline-none"
@@ -129,7 +149,7 @@ const Contact = () => {
                             </div>
 
                             <button
-                                type="submit"
+                                onClick={handleSubmit}
                                 className="md:w-32 bg-orange-700 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded-lg mt-3 hover:bg-orange-600 transition ease-in-out duration-300"
                             >
                                 Submit
@@ -139,7 +159,7 @@ const Contact = () => {
                 </div>
             </div>
         </div>
-  )
+    )
 }
 
 export default Contact

@@ -8,13 +8,14 @@ import Layout from './Layout.jsx'
 import About from './components/About.jsx'
 import Contact from './components/Contact.jsx'
 import User from './components/User.jsx'
+import UserContextProvider from './context/UserContextProvider.jsx'
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<Layout />}>
     <Route path='' element={<Home />} />
     <Route path='app' element={<App />} />
     <Route path='user/' element={<User />}>
-        <Route path=':userId' element={<User/>}/>
+      <Route path=':userId' element={<User />} />
     </Route>
     <Route path='contact' element={<Contact />} />
     <Route path='about' element={<About />} />
@@ -23,7 +24,9 @@ const router = createBrowserRouter(createRoutesFromElements(
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    {/* <App /> */}
-    <RouterProvider router={router} />
+    <UserContextProvider>
+      {/* <App /> */}
+      <RouterProvider router={router} />
+    </UserContextProvider>
   </StrictMode>,
 )
